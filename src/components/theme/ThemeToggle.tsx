@@ -13,7 +13,6 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
     className = '',
     size = 'md'
 }) => {
-
     // TODO: Replace with working theme logic or remove until theme-context is implemented
     const [theme, setTheme] = useState<'light' | 'dark' | 'system'>('system');
     const [mounted, setMounted] = useState(false);
