@@ -1,8 +1,30 @@
-# Copilot Instructions for Games app for user and games management  
+# Copilot Instructions for Kids Game Management App
+
+## Quickstart & Local Setup
+
+1. **Clone the repository:**
+   ```sh
+   git clone <repo-url>
+   cd kids-game-mgt
+   ```
+2. **Install dependencies:**
+   ```sh
+   yarn install
+   # or
+   npm install
+   ```
+3. **Configure environment variables:**
+   - Copy `.env.example` to `.env.local` (if present) and fill in Supabase keys and other secrets.
+   - Required: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+4. **Run the development server:**
+   ```sh
+   yarn dev
+   # or
+   npm run dev
+   ```
 
 ## Project Overview
 This project is a comprehensive management system for users and games, designed to support both administrative and player roles. As an admin, you can perform full CRUD operations on users and games, manage user roles, and oversee all data through a secure dashboard. The application exposes RESTful API endpoints for user and game management, leveraging Supabase for authentication, database, and real-time data synchronization. The system is built for scalability, extensibility, and security, supporting responsive UI for both desktop and mobile devices, and includes analytics and offline support for enhanced user experience.
-
 
 ## Architecture Principles
 - **Separation of concerns**: Clearly separate data access, business logic, and presentation layers.
@@ -16,25 +38,21 @@ This project is a comprehensive management system for users and games, designed 
 - **Responsive design**: Application should work across desktop and mobile devices.
 - **Schemas**: Table schemas for users and games.
 
-## Development Guidelines
-
-### Code Organization
-- Organize source code into `src/` with clear subfolders: `components/`, `pages/`, `hooks/`, `stores/`, `utils/`, and `api/`.
-- Place reusable math utilities in `/utils/` or similar.
-- Keep all business logic separate from UI components (e.g., in `services/` or `logic/`).
-- Use zustand for state management, with stores in `stores/`.
-- Use TypeScript throughout for type safety and maintainability.
-- Co-locate tests with implementation files using `.test.ts(x)` naming.
-- Use feature-based folder structure for scalable modules (e.g., `user/`, `game/`).
-- Centralize API calls in `api/` with typed interfaces and error handling.
-- Use React functional components and hooks for UI logic.
-- Apply consistent code formatting with Prettier and enforce standards with ESLint.
+## Folder Structure & Development Guidelines
+- Source code is in `src/` with subfolders:
+  - `app/` (Next.js App Router pages and layouts)
+  - `components/` (UI and logic components)
+  - `store/` (Zustand state management)
+  - `utils/` (utility functions)
+  - `styles/` (CSS)
+  - `pages/api/` (API routes)
+- Use absolute imports (see `tsconfig.json` paths).
+- Use TypeScript throughout.
+- Use Prettier and ESLint for formatting and linting.
 - Document modules and functions with JSDoc/TSDoc comments.
-- Prefer absolute imports using a configured `tsconfig.json` paths.
 
-
-### User and Games management Patterns
-- **User-game relationship**: Use a join table (e.g., `user_games`) to associate users with games, supporting many-to-many relationships (e.g., users can play multiple games, and games can have multiple users/players).
+### User and Games Management Patterns
+- **User-game relationship**: Use a join table (e.g., `user_games`) to associate users with games. (Clarify: The current implementation uses a many-to-many relationship, but see `setup.md` for one-to-many alternative.)
 - **Role-based access**: Store user roles (admin, player) in the users table for permission management.
 - **Game state tracking**: Store per-user game progress and results in the join table or a related table (e.g., `user_game_sessions`), referencing both user and game IDs.
 - **Supabase best practices**: Use row-level security (RLS) policies to restrict data access based on user roles and ownership.
@@ -69,9 +87,15 @@ This project is a comprehensive management system for users and games, designed 
 - **Accessible forms**: Use clear labels, validation, and error messages for all admin forms.
 - **Responsive tables**: Ensure user/game lists are readable and usable on all devices.
 
-
-## Integration Points
-- **Supabase integration**: Use Supabase for authentication, database, and RESTful API endpoints.
+## API & Integration Points
+- **API Endpoints:**
+  - RESTful endpoints for users, games, and user-games are in `src/pages/api/`.
+  - Use Supabase client for backend integration.
+  - Test endpoints with tools like Postman or curl.
+- **Environment Variables:**
+  - Store all secrets and API keys in `.env.local` (never commit secrets).
+- **Supabase integration:**
+  - Use Supabase for authentication, database, and RESTful API endpoints.
 - **Math rendering**: Integrate MathJax or KaTeX for displaying mathematical equations in quizzes and results.
 - **Analytics**: Connect to a learning analytics service or use Supabase analytics tables for tracking user performance and engagement.
 - **Authentication**: Leverage Supabase Auth for secure user login, registration, and role management.
@@ -91,16 +115,20 @@ This project is a comprehensive management system for users and games, designed 
 - Use environment variables for configuration (API keys, endpoints)
 - Modularize API calls and data fetching logic
 
-### Git instructions
-- Use feature branches named as `<feature-number>/<feature-name>` for new features or fixes
-- Always pull the latest changes from `main` before starting a new branch
-- Commit changes in logical, small increments with clear messages
-- Rebase your branch onto `main` regularly to minimize merge conflicts
-- Run all tests and lint checks locally before pushing
-- Push your branch to the remote repository and open a pull request using `pull-request-template.md`
-- Request code review from at least one team member before merging
-- Address review comments promptly and update the pull request as needed
-- After approval, squash and merge the pull request into `main`
-- Delete the feature branch after merging to keep the repository clean
+### Deployment & Git Instructions
+- **Deployment:**
+  - The project includes a GitHub Actions workflow for CI/CD.
+  - To deploy, push to `main` and the workflow will build and deploy (see `.github/workflows/`).
+  - For static export, use `yarn build` and `yarn export` (note: API routes are not available in static export).
 
-**End of prompt_instruction.md**
+- **Git workflow:**
+  - Use feature branches named as `<feature-number>/<feature-name>` or `fix/<description>` for new features or fixes.
+  - Always pull the latest changes from `main` before starting a new branch.
+  - Commit changes in logical, small increments with clear messages.
+  - Rebase your branch onto `main` regularly to minimize merge conflicts.
+  - Run all tests and lint checks locally before pushing.
+  - Push your branch to the remote repository and open a pull request using `pull-request-template.md`.
+  - Request code review from at least one team member before merging.
+  - Address review comments promptly and update the pull request as needed.
+  - After approval, squash and merge the pull request into `main`.
+  - Delete the feature branch after merging to keep the repository clean.
