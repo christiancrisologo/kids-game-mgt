@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useTheme } from '../../contexts/theme-context';
-import type { Theme } from '../../contexts/theme-context';
+// import { useTheme } from '../../contexts/theme-context';
+// import type { Theme } from '../../contexts/theme-context';
 
 interface ThemeToggleProps {
     className?: string;
@@ -13,7 +13,9 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
     className = '',
     size = 'md'
 }) => {
-    const { theme, setTheme } = useTheme();
+
+    // TODO: Replace with working theme logic or remove until theme-context is implemented
+    const [theme, setTheme] = useState<'light' | 'dark' | 'system'>('system');
     const [mounted, setMounted] = useState(false);
 
     // Prevent hydration mismatch
@@ -21,7 +23,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
         setMounted(true);
     }, []);
 
-    const themes: { value: Theme; label: string; icon: string }[] = [
+    const themes: { value: 'light' | 'dark' | 'system'; label: string; icon: string }[] = [
         { value: 'light', label: 'Light', icon: '☀️' },
         { value: 'dark', label: 'Dark', icon: '🌙' },
         { value: 'system', label: 'System', icon: '💻' },
