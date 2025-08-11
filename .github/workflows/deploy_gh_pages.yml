@@ -45,8 +45,10 @@ jobs:
       - name: Build and export static site
         run: npm run build
         env:
-          NEXT_PUBLIC_SUPABASE_URL: https://jtpzzbognaeitsffarcd.supabase.co
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp0cHp6Ym9nbmFlaXRzZmZhcmNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ3ODUzMTQsImV4cCI6MjA3MDM2MTMxNH0.EKnCEKxKKLLs9iWkHdBHdyWeyrQsHa6IU02NTNGatao
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          # NEXT_PUBLIC_SUPABASE_URL: https://jtpzzbognaeitsffarcd.supabase.co
+          # NEXT_PUBLIC_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp0cHp6Ym9nbmFlaXRzZmZhcmNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ3ODUzMTQsImV4cCI6MjA3MDM2MTMxNH0.EKnCEKxKKLLs9iWkHdBHdyWeyrQsHa6IU02NTNGatao
 
           
       - name: Deploy to GitHub Pages
