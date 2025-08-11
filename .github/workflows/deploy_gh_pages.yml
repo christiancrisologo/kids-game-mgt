@@ -40,10 +40,21 @@ jobs:
       
       - name: Install dependencies
         run: npm install
-      
+
+      - name: Debug env
+        run: |
+          echo "URL is: ${NEXT_PUBLIC_SUPABASE_URL}"
+          echo "Key is: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}"
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+        
       - name: Build and export static site
         run: npm run build
-
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
