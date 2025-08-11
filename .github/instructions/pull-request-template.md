@@ -58,7 +58,3 @@ Closes #
 
 ## 🔄 Deployment Notes
 <!-- Any special deployment considerations -->
-
-## 👥 Reviewers
-<!-- Tag specific reviewers if needed -->
-@christiancrisologo
