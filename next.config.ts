@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const repoName = "kids-math-quiz";
+const repoName = "kids-game-mgt";
 
 const nextConfig: NextConfig = {
   // Enable static export for GitHub Pages
