@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // Enable static export for GitHub Pages
-  output: 'export',
+  // output: 'export',
   
   // Add trailing slash for GitHub Pages compatibility
   trailingSlash: true,
