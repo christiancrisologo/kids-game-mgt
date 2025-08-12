@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const repoName = "kids-math-quiz";
+
 const nextConfig: NextConfig = {
   // Enable static export for GitHub Pages
   // output: 'export',
@@ -13,8 +15,8 @@ const nextConfig: NextConfig = {
   },
   
   // Configure base path and asset prefix for GitHub Pages
-  basePath: process.env.NODE_ENV === 'production' ? '/kids-math-quiz' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/kids-math-quiz/' : '',
+  basePath: process.env.NODE_ENV === 'production' ? `/${repoName}` : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? `/${repoName}/` : '',
 };
 
 export default nextConfig;
