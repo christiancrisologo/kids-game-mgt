@@ -18,6 +18,7 @@ interface GameState {
 }
 
 import { supabase } from '@/utils/supabaseClient';
+import { TABLES } from '@/utils/supabaseTables';
 
 export const useGameStore = create<GameState>((set) => ({
   games: [],
@@ -25,13 +26,13 @@ export const useGameStore = create<GameState>((set) => ({
   error: '',
   fetchGames: async () => {
     set({ loading: true, error: '' });
-    const { data, error } = await supabase.from('Games').select('*');
+  const { data, error } = await supabase.from(TABLES.GAMES).select('*');
     if (error) set({ error: error.message, loading: false });
     else set({ games: data || [], loading: false });
   },
   addGame: async (name, description) => {
     set({ loading: true, error: '' });
-    const { error } = await supabase.from('Games').insert([{ name, description }]);
+  const { error } = await supabase.from(TABLES.GAMES).insert([{ name, description }]);
     if (error) set({ error: error.message, loading: false });
     else {
       await useGameStore.getState().fetchGames();
@@ -40,7 +41,7 @@ export const useGameStore = create<GameState>((set) => ({
   },
   updateGame: async (id, name, description) => {
     set({ loading: true, error: '' });
-    const { error } = await supabase.from('Games').update({ name, description }).eq('id', id);
+  const { error } = await supabase.from(TABLES.GAMES).update({ name, description }).eq('id', id);
     if (error) set({ error: error.message, loading: false });
     else {
       await useGameStore.getState().fetchGames();
@@ -49,7 +50,7 @@ export const useGameStore = create<GameState>((set) => ({
   },
   deleteGame: async (id) => {
     set({ loading: true, error: '' });
-    const { error } = await supabase.from('Games').delete().eq('id', id);
+  const { error } = await supabase.from(TABLES.GAMES).delete().eq('id', id);
     if (error) set({ error: error.message, loading: false });
     else {
       await useGameStore.getState().fetchGames();
