@@ -3,11 +3,10 @@ import type { NextConfig } from "next";
 const repoName = "kids-game-mgt";
 const isProduction = ['production', 'github-pages'].includes(process.env.NODE_ENV);
 
-console.log('----- isProduction ', isProduction, process.env.NODE_ENV);
 
 const nextConfig: NextConfig = {
   // Enable static export for GitHub Pages
-  output: 'export',
+  ...(isProduction ? { output: 'export' } : {}),
   
   // Add trailing slash for GitHub Pages compatibility
   trailingSlash: true,
