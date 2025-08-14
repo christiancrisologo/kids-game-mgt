@@ -18,6 +18,7 @@ interface UserState {
 }
 
 import { supabase } from '@/utils/supabaseClient';
+import { TABLES } from '@/utils/supabaseTables';
 
 export const useUserStore = create<UserState>((set) => ({
   users: [],
@@ -25,13 +26,13 @@ export const useUserStore = create<UserState>((set) => ({
   error: '',
   fetchUsers: async () => {
     set({ loading: true, error: '' });
-    const { data, error } = await supabase.from('Users').select('*');
+  const { data, error } = await supabase.from(TABLES.USERS).select('*');
     if (error) set({ error: error.message, loading: false });
     else set({ users: data || [], loading: false });
   },
   addUser: async (email, username) => {
     set({ loading: true, error: '' });
-    const { error } = await supabase.from('Users').insert([{ email, username }]);
+  const { error } = await supabase.from(TABLES.USERS).insert([{ email, username }]);
     if (error) set({ error: error.message, loading: false });
     else {
       await useUserStore.getState().fetchUsers();
@@ -40,7 +41,7 @@ export const useUserStore = create<UserState>((set) => ({
   },
   updateUser: async (id, email, username) => {
     set({ loading: true, error: '' });
-    const { error } = await supabase.from('Users').update({ email, username }).eq('id', id);
+  const { error } = await supabase.from(TABLES.USERS).update({ email, username }).eq('id', id);
     if (error) set({ error: error.message, loading: false });
     else {
       await useUserStore.getState().fetchUsers();
@@ -49,7 +50,7 @@ export const useUserStore = create<UserState>((set) => ({
   },
   deleteUser: async (id) => {
     set({ loading: true, error: '' });
-    const { error } = await supabase.from('Users').delete().eq('id', id);
+  const { error } = await supabase.from(TABLES.USERS).delete().eq('id', id);
     if (error) set({ error: error.message, loading: false });
     else {
       await useUserStore.getState().fetchUsers();
